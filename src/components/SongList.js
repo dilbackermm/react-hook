@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NewSongForm from "./NewSongForm";
 
 
@@ -8,10 +8,17 @@ const SongList = () => {
        { title: 'memory gospel' },
        { title: 'this wild darkness' }
     ]);
-const addsong = () => {
-    setSongs ([ ...songs, { title:'new song'}]);
+const addSong = (title) => {
+    setSongs ([ ...songs, { title}]);
 }
+const [age, setAge] = useState(20);
 
+useEffect(() => {
+    console.log('useEffect hook ran ', age)
+},[age])
+useEffect(() => {
+    console.log('useeffect hook for song ran', songs )
+},[songs])
     return ( 
         <div className="song-list">
             <ul>
@@ -19,7 +26,8 @@ const addsong = () => {
                     return(<li key={index}>{song.title}</li>)
                 })}
             </ul>
-          <NewSongForm />
+          <NewSongForm addSong={addSong} />
+          <button onClick={() => setAge(age + 1)}>add 1 to age: {age}</button>
         </div>
      );
 }
